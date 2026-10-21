@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Delete your Walls account</title>
+  <meta name="description" content="Delete your Walls account and everything saved with it, without the app.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Doto:wght@900&family=Geist:wght@400;500;600&family=Geist+Mono:wght@500&display=swap">
+  <style>
+    :root {
+      --ground: #f4f4f2; --surface: #ffffff; --ink: #111111; --on-ink: #ffffff;
+      --body: #45453f; --muted: #5e5e5b; --hairline: #e0e0dc; --red: #ef1c2b;
+      color-scheme: light dark;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --ground: #0f0f0f; --surface: #1a1a1a; --ink: #f2f2f0; --on-ink: #111111;
+        --body: #c9c9c4; --muted: #a3a3a0; --hairline: #2c2c2c;
+      }
+    }
+    :root[data-theme="dark"] {
+      --ground: #0f0f0f; --surface: #1a1a1a; --ink: #f2f2f0; --on-ink: #111111;
+      --body: #c9c9c4; --muted: #a3a3a0; --hairline: #2c2c2c;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--ground); color: var(--ink); font: 400 16px/1.5 Geist, system-ui, sans-serif; }
+    main { max-width: 560px; margin: 0 auto; padding: 24px 16px 56px; display: flex; flex-direction: column; gap: 20px; }
+    .label { font: 500 12px/1 "Geist Mono", monospace; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0; }
+    h1 { font: 900 44px/1.05 Doto, "Geist Mono", monospace; margin: 8px 0 0; letter-spacing: -.01em; }
+    p { margin: 0; color: var(--body); }
+    .card { background: var(--surface); border: 1px solid var(--hairline); border-radius: 22px; }
+    .card ul { list-style: none; margin: 0; padding: 0; }
+    .card li { padding: 14px 16px; border-bottom: 1px solid var(--hairline); color: var(--ink); }
+    .card li:last-child { border-bottom: 0; }
+    .stack { display: flex; flex-direction: column; gap: 10px; }
+    form.card { padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+    label.field { display: flex; flex-direction: column; gap: 6px; font-size: 14px; color: var(--muted); }
+    input[type=email] { font: inherit; color: var(--ink); background: var(--ground); border: 1px solid var(--hairline); border-radius: 14px; padding: 12px 14px; min-height: 48px; width: 100%; }
+    .check { display: flex; gap: 10px; align-items: flex-start; font-size: 15px; color: var(--body); }
+    .check input { width: 20px; height: 20px; margin: 2px 0 0; accent-color: var(--red); flex: none; }
+    button { font: 500 16px Geist, system-ui, sans-serif; border-radius: 28px; min-height: 52px; padding: 0 20px; border: 1px solid transparent; cursor: pointer; }
+    button:disabled { opacity: .45; cursor: default; }
+    .primary { background: var(--ink); color: var(--on-ink); }
+    .danger { background: var(--red); color: #fff; }
+    .ghost { background: transparent; color: var(--ink); border-color: var(--hairline); min-height: 44px; }
+    input:focus-visible, button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+    .status { padding: 14px 16px; border-radius: 16px; background: var(--ink); color: var(--on-ink); }
+    .error { color: var(--red); }
+    .small { font-size: 14px; color: var(--muted); }
+    code { font: 500 13px "Geist Mono", monospace; overflow-wrap: anywhere; }
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+<main>
+  <p class="label">WALLS / DELETE ACCOUNT</p>
+  <h1>Delete account</h1>
+  <p>In the app: open <strong>You</strong>, then <strong>Delete account</strong>. No app? Do it here: sign in with an email link, then delete.</p>
+
+  <section class="stack" aria-labelledby="deleted-label">
+    <p class="label" id="deleted-label">DELETED</p>
+    <div class="card"><ul>
+      <li>Your Walls account and its sign-in. A Google account itself isn't affected.</li>
+      <li>Saved wallpapers kept in the account.</li>
+      <li>Paired PCs and what they sent to the AI &amp; Agents widgets.</li>
+    </ul></div>
+  </section>
+  <section class="stack" aria-labelledby="stays-label">
+    <p class="label" id="stays-label">STAYS ON YOUR PHONE</p>
+    <div class="card"><ul>
+      <li>Wallpapers you've set, your widgets and their settings, and your appearance choices. Uninstalling Walls removes them.</li>
+    </ul></div>
+  </section>
+  <p class="small">Everything is deleted at once. A paired PC stops updating; to take Walls off it, run <code>node ~/.walls-agent/walls-agent.mjs unpair</code> there.</p>
+
+  <p class="status" id="status" role="status" hidden></p>
+
+  <form class="card" id="send-form" hidden novalidate>
+    <label class="field">Your account's email
+      <input type="email" name="email" autocomplete="email" required>
+    </label>
+    <p class="error" id="send-error" role="alert" hidden></p>
+    <button class="primary" type="submit">Email me a sign-in link</button>
+    <p class="small">Open the link on this device. It brings you back here, signed in.</p>
+  </form>
+
+  <form class="card" id="delete-form" hidden novalidate>
+    <p>Signed in as <strong id="who"></strong>.</p>
+    <label class="check"><input type="checkbox" name="sure" required> I understand that my account and everything saved with it will be deleted, and that this can't be undone.</label>
+    <p class="error" id="delete-error" role="alert" hidden></p>
+    <button class="danger" type="submit" disabled>Delete account</button>
+    <button class="ghost" type="button" id="not-me">Not you? Sign out</button>
+  </form>
+</main>
+<script type="module">
+  import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/+esm";
+
+  // Public client settings, the same as the app's (the publishable key is meant for browsers).
+  const sb = createClient("https://zditldndlgthectqjwzy.supabase.co", "sb_publishable_4bZEnKY0CMi6USaS5k14xQ_A9wtrAb6", {
+    auth: { flowType: "implicit", detectSessionInUrl: true, persistSession: true, storageKey: "walls-delete-account" },
+  });
+  const $ = (id) => document.getElementById(id);
+  const sendForm = $("send-form"), deleteForm = $("delete-form");
+  const deleteButton = deleteForm.querySelector("button[type=submit]");
+
+  function show(text, isError) {
+    const status = $("status");
+    status.textContent = text;
+    status.hidden = !text;
+    status.style.background = isError ? "var(--red)" : "";
+    status.style.color = isError ? "#fff" : "";
+  }
+  function fail(el, text) { el.textContent = text; el.hidden = !text; }
+
+  let deleted = false;
+  async function render() {
+    const { data: { session } } = await sb.auth.getSession();
+    if (deleted) { sendForm.hidden = deleteForm.hidden = true; return; }
+    sendForm.hidden = !!session;
+    deleteForm.hidden = !session;
+    if (session) $("who").textContent = session.user.email || "your account";
+  }
+
+  // A link that failed or expired comes back with the reason in the address.
+  const back = new URLSearchParams(location.hash.slice(1) || location.search.slice(1));
+  if (back.get("error_description")) {
+    show("That link didn't work: " + back.get("error_description") + ". Ask for a new one below.", true);
+    history.replaceState(null, "", location.pathname);
+  }
+
+  sendForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const email = sendForm.email.value.trim();
+    fail($("send-error"), "");
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return fail($("send-error"), "Enter a valid email address.");
+    const button = sendForm.querySelector("button");
+    button.disabled = true;
+    const { error } = await sb.auth.signInWithOtp({
+      email, options: { shouldCreateUser: false, emailRedirectTo: location.origin + location.pathname },
+    });
+    button.disabled = false;
+    if (error && (error.status === 429 || /rate|seconds/i.test(error.message))) {
+      return fail($("send-error"), "Too many emails. Wait a minute, then try again.");
+    }
+    if (error && error.status !== 400 && error.status !== 422) {
+      return fail($("send-error"), "Couldn't send the email. Check your connection and try again.");
+    }
+    // Same answer whether or not an account uses this address.
+    show("If a Walls account uses " + email + ", a sign-in link is on its way. Open it on this device.");
+  });
+
+  deleteForm.sure.addEventListener("change", () => { deleteButton.disabled = !deleteForm.sure.checked; });
+
+  deleteForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    if (!deleteForm.sure.checked) return;
+    fail($("delete-error"), "");
+    deleteButton.disabled = true;
+    deleteButton.textContent = "Deleting…";
+    const { error } = await sb.rpc("delete_my_account");
+    deleteButton.textContent = "Delete account";
+    if (error) {
+      deleteButton.disabled = false;
+      return fail($("delete-error"), "Couldn't delete the account. Check your connection, sign in again if this keeps happening, and retry.");
+    }
+    deleted = true;
+    await sb.auth.signOut({ scope: "local" });
+    show("Your account and everything saved with it were deleted.");
+    render();
+  });
+
+  $("not-me").addEventListener("click", async () => {
+    await sb.auth.signOut({ scope: "local" });
+    show("");
+    render();
+  });
+
+  sb.auth.onAuthStateChange(() => render());
+  render();
+</script>
+</body>
+</html>
