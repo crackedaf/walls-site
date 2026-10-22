@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Walls</title>
+  <meta name="description" content="Walls, an Android app for wallpapers and home-screen widgets.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Doto:wght@900&family=Geist:wght@400;500&family=Geist+Mono:wght@500&display=swap">
+  <style>
+    :root { --ground: #f4f4f2; --surface: #ffffff; --ink: #111111; --body: #45453f; --muted: #5e5e5b; --hairline: #e0e0dc; color-scheme: light dark; }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) { --ground: #0f0f0f; --surface: #1a1a1a; --ink: #f2f2f0; --body: #c9c9c4; --muted: #a3a3a0; --hairline: #2c2c2c; }
+    }
+    :root[data-theme="dark"] { --ground: #0f0f0f; --surface: #1a1a1a; --ink: #f2f2f0; --body: #c9c9c4; --muted: #a3a3a0; --hairline: #2c2c2c; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--ground); color: var(--ink); font: 400 16px/1.5 Geist, system-ui, sans-serif; }
+    main { max-width: 560px; margin: 0 auto; padding: 24px 16px 56px; display: flex; flex-direction: column; gap: 20px; }
+    .label { font: 500 12px/1 "Geist Mono", monospace; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0; }
+    h1 { font: 900 56px/1 Doto, "Geist Mono", monospace; margin: 8px 0 0; }
+    p { margin: 0; color: var(--body); }
+    nav { background: var(--surface); border: 1px solid var(--hairline); border-radius: 22px; display: flex; flex-direction: column; }
+    nav a { padding: 16px; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--hairline); display: flex; justify-content: space-between; }
+    nav a:last-child { border-bottom: 0; }
+    nav a::after { content: "›"; color: var(--muted); }
+    nav a:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; border-radius: 22px; }
+  </style>
+</head>
+<body>
+<main>
+  <p class="label">WALLS</p>
+  <h1>Walls</h1>
+  <p>Wallpapers, wallpaper generators and home-screen widgets for Android.</p>
+  <nav>
+    <a href="privacy.html">Privacy policy</a>
+    <a href="delete-account.html">Delete your account</a>
+  </nav>
+</main>
+</body>
+</html>
