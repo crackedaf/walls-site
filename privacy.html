@@ -58,8 +58,8 @@
   <div class="card"><ul>
     <li><strong>Your account, if you make one</strong>Your email address and an account ID. With Google sign-in, also the name and profile picture link Google shares. A password is stored only as a hash, so we can't read it. Sign-in records your IP address in our backend's security logs. Used to sign you in and to keep your saved wallpapers.</li>
     <li><strong>Saved wallpapers, when signed in</strong>Which wallpapers you saved, so they follow you to another phone.</li>
-    <li><strong>Approximate location, only for My location</strong>If you set a Weather widget to My location, Walls reads your phone's approximate location, never the precise one. The coordinates go to Open-Meteo for the forecast, and your phone's geocoding service (Google's on most Android phones) turns them into a town name. Walls keeps only the latest area on the phone, not a history. It checks in the background only if you choose "Allow all the time".</li>
-    <li><strong>Weather for a city</strong>The coordinates of the city you picked go to Open-Meteo.</li>
+    <li><strong>Approximate location, only for My location</strong>If you set a Weather widget to My location, Walls reads your phone's approximate location, never the precise one. The coordinates go to Open-Meteo for the forecast (and the air quality, for an Air quality widget), and your phone's geocoding service (Google's on most Android phones) turns them into a town name. Walls keeps only the latest area on the phone, not a history. It checks in the background only if you choose "Allow all the time".</li>
+    <li><strong>Weather for a city</strong>The coordinates of the city you picked go to Open-Meteo, for the forecast and, with an Air quality widget, the air quality.</li>
     <li><strong>AI &amp; Agents widgets, only if you pair a PC</strong>The Walls script on your PC sends, linked to your account: the PC's name, the state of each Claude Code session, short step labels (such as "Editing HomeWidgets.kt", "Running git push", short search terms or a website's name), the project folder's name, token counts, plan usage and working time. It never sends your prompts, code, file contents, full paths or command arguments. Only the latest report is kept. Removing the PC in Walls deletes it and its reports.</li>
     <li><strong>Downloads</strong>Wallpapers are downloaded from our backend. Like any server, it sees your IP address while it answers.</li>
   </ul></div>
@@ -67,8 +67,9 @@
   <h2>What stays on your phone</h2>
   <div class="card"><ul>
     <li>Photos you pick for generators or the Photo widget (Walls keeps a small copy for the widget), and contacts you pick for the Contact widget. They come from Android's own pickers, so Walls never reads your whole gallery or contact list.</li>
-    <li>Your step count, battery readings, and the Wi-Fi name and password you enter for Share Wi-Fi.</li>
+    <li>Your step count, battery readings, water and habit logs, the Wi-Fi name and password you enter for Share Wi-Fi, and the UPI ID and name you enter for Pay me QR.</li>
     <li>The state the control widgets show (Wi-Fi, Bluetooth, mobile data, torch and the rest), your widget settings, the wallpapers you set and your appearance choices.</li>
+    <li>For frosted glass widgets: a small copy of your home-screen wallpaper (one Walls set, a picture you choose, or, on Android 12 and older if you allow it, the wallpaper itself), blurred on the phone behind each widget, and where each widget sits on the screen. Android's storage permission is used only to read the wallpaper.</li>
   </ul></div>
   <p>Walls turns off Android's app backup, so none of this is copied to your Google backup. Uninstalling Walls removes it.</p>
 
@@ -78,7 +79,7 @@
   <h2>Who handles it</h2>
   <div class="card"><ul>
     <li><strong>Supabase</strong>Hosts our backend: accounts, saved wallpapers, agent widget data and the wallpaper catalogue. <a href="https://supabase.com/privacy">Supabase privacy policy</a>.</li>
-    <li><strong>Open-Meteo</strong>Weather forecasts. Receives the coordinates and your IP address with each request. <a href="https://open-meteo.com/en/terms#privacy">Open-Meteo privacy policy</a>.</li>
+    <li><strong>Open-Meteo</strong>Weather forecasts and air quality. Receives the coordinates and your IP address with each request. <a href="https://open-meteo.com/en/terms#privacy">Open-Meteo privacy policy</a>.</li>
     <li><strong>Google</strong>Google sign-in, if you use it, and geocoding on most Android phones. <a href="https://policies.google.com/privacy">Google privacy policy</a>.</li>
     <li><strong>An email service</strong>Sends sign-in, confirmation and password reset emails to your address.</li>
     <li><strong>GitHub Pages, Google Fonts and jsDelivr</strong>Host and serve this page and the account deletion page, and see your IP address while doing it.</li>
